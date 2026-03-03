@@ -1,45 +1,35 @@
 import customtkinter as ctk
-class LoginApp(ctk.CTk):
-    def __init__(self):
-        super().__init__()
 
-        self.title("Sistema de Inventario TI - Acceso")
-        self.geometry("400x500")
-        self.resizable(False, False)
+ctk.set_appearance_mode("dark")
+ctk.set_default_color_theme("blue")
 
-        
-        self.label_titulo = ctk.CTkLabel(self, text="INVENTARIO TALLER", font=("Roboto", 24, "bold"))
-        self.label_titulo.pack(pady=40)
+def intentar_login():
+    usuario = entry_usuario.get()
+    password = entry_password.get()
+    print(f"Intentando acceder con: {usuario}")
+    
+    if usuario == "admin" and password == "1234":
+        print("¡Login exitoso! Abriendo Dashboard...")
+    else:
+        print("Credenciales incorrectas")
 
-        self.entry_user = ctk.CTkEntry(self, placeholder_text="Usuario / ID", width=250)
-        self.entry_user.pack(pady=10)
+app = ctk.CTk()
+app.geometry("400x450")
+app.title("Taller Bodega - Acceso")
 
-        
-        self.entry_pass = ctk.CTkEntry(self, placeholder_text="Contraseña", show="*", width=250)
-        self.entry_pass.pack(pady=10)
+frame = ctk.CTkFrame(master=app)
+frame.pack(pady=40, padx=40, fill="both", expand=True)
 
-        
-        self.btn_login = ctk.CTkButton(self, text="INICIAR SESIÓN", width=250, command=self.validar_login)
-        self.btn_login.pack(pady=30)
+label_titulo = ctk.CTkLabel(master=frame, text="Iniciar Sesión", font=("Roboto", 24, "bold"))
+label_titulo.pack(pady=20, padx=10)
 
-      
-        self.label_info = ctk.CTkLabel(self, text="", text_color="red")
-        self.label_info.pack()
+entry_usuario = ctk.CTkEntry(master=frame, placeholder_text="Usuario", width=200)
+entry_usuario.pack(pady=12, padx=10)
 
-    def validar_login(self):
-       
-        usuario = self.entry_user.get()
-        password = self.entry_pass.get()
+entry_password = ctk.CTkEntry(master=frame, placeholder_text="Contraseña", show="*", width=200)
+entry_password.pack(pady=12, padx=10)
 
-        if usuario == "admin" and password == "1234":
-            self.label_info.configure(text="¡Acceso Correcto!", text_color="green")
-            print("Abriendo sistema principal...")
-            
-            self.destroy() # Cierra el login
-        else:
-            self.label_info.configure(text="Usuario o contraseña incorrectos", text_color="red")
+btn_ingresar = ctk.CTkButton(master=frame, text="Ingresar", command=intentar_login)
+btn_ingresar.pack(pady=20, padx=10)
 
-
-if __name__ == "__main__":
-    app = LoginApp()
-    app.mainloop()
+app.mainloop()
