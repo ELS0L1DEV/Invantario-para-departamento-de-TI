@@ -1,4 +1,4 @@
-USE TallerBodega
+    USE TallerBodega
 
 CREATE TABLE Rack_1(
 Columna VARCHAR (10)NOT NULL,

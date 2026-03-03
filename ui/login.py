@@ -39,7 +39,7 @@ class LoginApp(ctk.CTk):
         else:
             self.label_info.configure(text="Usuario o contraseña incorrectos", text_color="red")
 
-# Para probarlo solo ejecuta este archivo
+
 if __name__ == "__main__":
     app = LoginApp()
     app.mainloop()
