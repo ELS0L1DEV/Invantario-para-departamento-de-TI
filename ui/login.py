@@ -6,10 +6,11 @@ ctk.set_default_color_theme("blue")
 def intentar_login():
     usuario = entry_usuario.get()
     password = entry_password.get()
-    print(f"Intentando acceder con: {usuario}")
     
     if usuario == "admin" and password == "1234":
-        print("¡Login exitoso! Abriendo Dashboard...")
+        print("¡Login exitoso! Cerrando login y abriendo Dashboard...")
+        app.destroy() # ¡AQUÍ ESTÁ LA MAGIA! Destruimos la ventana de login
+        abrir_dashboard() # Y mandamos llamar la ventana del dashboard
     else:
         print("Credenciales incorrectas")
 
