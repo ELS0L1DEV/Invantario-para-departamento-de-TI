@@ -7,15 +7,15 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def obtener_datos_directo():
-    server = os.getenv('DB_SERVER')
+    server = os.getenv('ANGEL')
     database = 'TallerBodega'
 
     try:
-        cadena = f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={server};DATABASE={database};Trusted_Connection=yes;'
+        cadena = f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={'ANGEL'};DATABASE={'TallerBodega'};Trusted_Connection=yes;'
         conexion = pyodbc.connect(cadena)
         cursor = conexion.cursor()
         
-        cursor.execute("SELECT * FROM Rack_1")
+        cursor.execute("SELECT * FROM Rack_1,Rack_2,Rack_3,Rack_4")
         datos = cursor.fetchall()
         conexion.close()
         return datos
