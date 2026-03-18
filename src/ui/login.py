@@ -1,4 +1,4 @@
-from dashboard import abrir_dashboard
+from dashboard import iniciar_dashboard
 import customtkinter as ctk
 
 ctk.set_appearance_mode("dark")
@@ -11,7 +11,7 @@ def intentar_login():
     if usuario == "admin" and password == "1234":
         print("¡Login exitoso! Cerrando login y abriendo Dashboard...")
         app.destroy() 
-        abrir_dashboard() 
+        iniciar_dashboard() 
     else:
         print("Credenciales incorrectas")
 
