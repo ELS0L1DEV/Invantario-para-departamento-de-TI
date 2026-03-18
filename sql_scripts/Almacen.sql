@@ -130,8 +130,6 @@ INSERT INTO Rack_3 VALUES ('F','2','Anuncios de Plastico','1')
 INSERT INTO Rack_3 VALUES ('F','2','Tapones de Oidos','34')
 INSERT INTO Rack_3 VALUES ('F','3','Bases Monitor','1')
 INSERT INTO Rack_3 VALUES ('F','4','Serviudores','7')
-
-
 --RACK 4
 --COLUMNA A
 INSERT INTO Rack_4 VALUES ('A','1','Cable alimentacion','4')
