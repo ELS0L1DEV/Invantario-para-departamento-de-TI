@@ -11,7 +11,7 @@ def obtener_datos_directo():
     database = 'TallerBodega'
 
     try:
-        cadena = f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={'ANGEL'};DATABASE={'TallerBodega'};Trusted_Connection=yes;'
+        cadena = f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={'DESKTOP-7DID8VM'};DATABASE={'TallerBodega'};Trusted_Connection=yes;'
         conexion = pyodbc.connect(cadena)
         cursor = conexion.cursor()
         
