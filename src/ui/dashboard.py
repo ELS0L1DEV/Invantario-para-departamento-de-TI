@@ -15,7 +15,7 @@ def obtener_datos_directo():
         conexion = pyodbc.connect(cadena)
         cursor = conexion.cursor()
         
-        cursor.execute("SELECT * FROM Racks ORDER BY Columna ASC AND Fila ASC")
+        cursor.execute("SELECT * FROM Racks ORDER BY Columna, Fila ASC")
         datos = cursor.fetchall()
         conexion.close()
         return datos
