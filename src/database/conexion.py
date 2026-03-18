@@ -9,8 +9,8 @@ def obtener_conexion():
     database = os.getenv('DB_NAME')
 
     try:
-        # Autenticación de Windows (Si entras a SQL Server sin contraseña)
-        cadena = f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={server};DATABASE={database};Trusted_Connection=yes;'
+        
+        cadena = f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={"LAPTOP-0QJ6QEFG"};DATABASE={"TallerBodega"};Trusted_Connection=yes;'
         
         conexion = pyodbc.connect(cadena)
         return conexion

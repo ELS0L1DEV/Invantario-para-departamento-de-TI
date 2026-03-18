@@ -10,8 +10,8 @@ def intentar_login():
     
     if usuario == "admin" and password == "1234":
         print("¡Login exitoso! Cerrando login y abriendo Dashboard...")
-        app.destroy() # ¡AQUÍ ESTÁ LA MAGIA! Destruimos la ventana de login
-        abrir_dashboard() # Y mandamos llamar la ventana del dashboard
+        app.destroy() 
+        abrir_dashboard() 
     else:
         print("Credenciales incorrectas")
 
