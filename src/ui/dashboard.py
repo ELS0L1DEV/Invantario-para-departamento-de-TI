@@ -1,36 +1,56 @@
 import customtkinter as ctk
+from tkinter import ttk
+import pyodbc
+import os
+from dotenv import load_dotenv
 
-def abrir_dashboard():
-    ventana_dashboard = ctk.CTk()
-    ventana_dashboard.geometry("900x600")
-    ventana_dashboard.title("Taller Bodega - Panel Principal")
+load_dotenv()
 
-    ventana_dashboard.grid_rowconfigure(0, weight=1)
-    ventana_dashboard.grid_columnconfigure(1, weight=1)
+def obtener_datos_directo():
+    server = os.getenv('DB_SERVER')
+    database = 'TallerBodega'
 
-    marco_lateral = ctk.CTkFrame(ventana_dashboard, width=200, corner_radius=0)
-    marco_lateral.grid(row=0, column=0, sticky="nsew")
-    marco_lateral.grid_rowconfigure(4, weight=1)
+    try:
+        cadena = f'DRIVER={{ODBC Driver 17 for SQL Server}};SERVER={server};DATABASE={database};Trusted_Connection=yes;'
+        conexion = pyodbc.connect(cadena)
+        cursor = conexion.cursor()
+        
+        cursor.execute("SELECT * FROM Rack_1")
+        datos = cursor.fetchall()
+        conexion.close()
+        return datos
+    except Exception as e:
+        print(f"Error de conexión: {e}")
+        return []
 
-    texto_titulo = ctk.CTkLabel(marco_lateral, text="Taller Bodega", font=("Roboto", 20, "bold"))
-    texto_titulo.grid(row=0, column=0, padx=20, pady=(20, 10))
+def iniciar_dashboard():
+    app = ctk.CTk()
+    app.geometry("800x500")
+    app.title("Dashboard - Inventario")
 
-    boton_inventario = ctk.CTkButton(marco_lateral, text="📦 Inventario")
-    boton_inventario.grid(row=1, column=0, padx=20, pady=10)
+    titulo = ctk.CTkLabel(app, text="Inventario Actual - Rack 1", font=("Arial", 24, "bold"))
+    titulo.pack(pady=20)
 
-    boton_usuarios = ctk.CTkButton(marco_lateral, text="👥 Usuarios")
-    boton_usuarios.grid(row=2, column=0, padx=20, pady=10)
+    estilo = ttk.Style()
+    estilo.theme_use("default")
+    estilo.configure("Treeview", background="#2b2b2b", foreground="white", fieldbackground="#2b2b2b", rowheight=30)
+    estilo.map('Treeview', background=[('selected', '#1f538d')])
 
-    boton_configuracion = ctk.CTkButton(marco_lateral, text="⚙️ Configuración")
-    boton_configuracion.grid(row=3, column=0, padx=20, pady=10)
+    columnas = ("Columna", "Fila", "Articulo", "Cantidad")
+    tabla = ttk.Treeview(app, columns=columnas, show="headings", style="Treeview")
 
-    marco_principal = ctk.CTkFrame(ventana_dashboard, corner_radius=10)
-    marco_principal.grid(row=0, column=1, padx=20, pady=20, sticky="nsew")
+    for col in columnas:
+        tabla.heading(col, text=col)
+        tabla.column(col, width=150, anchor="center")
 
-    texto_bienvenida = ctk.CTkLabel(marco_principal, text="¡Bienvenido al Sistema!", font=("Roboto", 24, "bold"))
-    texto_bienvenida.pack(pady=50)
+    tabla.pack(pady=20, padx=20, fill="both", expand=True)
 
-    ventana_dashboard.mainloop()
+    datos_sql = obtener_datos_directo()
+    
+    for fila in datos_sql:
+        tabla.insert("", "end", values=list(fila))
+
+    app.mainloop()
 
 if __name__ == "__main__":
-    abrir_dashboard()
+    iniciar_dashboard()
