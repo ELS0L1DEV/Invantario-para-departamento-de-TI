@@ -15,7 +15,7 @@ def obtener_datos_directo():
         conexion = pyodbc.connect(cadena)
         cursor = conexion.cursor()
         
-        cursor.execute("SELECT * FROM Racks ORDER BY Columna, Fila ASC")
+        cursor.execute("SELECT * FROM Rack ORDER BY Num_de_Rack ,Columna, Fila ASC")
         datos = cursor.fetchall()
         conexion.close()
         return datos
@@ -28,7 +28,7 @@ def iniciar_dashboard():
     app.geometry("800x500")
     app.title("Dashboard - Inventario")
 
-    titulo = ctk.CTkLabel(app, text="Inventario Actual", font=("Arial", 24, "bold"))
+    titulo = ctk.CTkLabel(app, text="Inventario Taller Bodega", font=("Arial", 24, "bold"))
     titulo.pack(pady=20)
 
     estilo = ttk.Style()
@@ -36,7 +36,7 @@ def iniciar_dashboard():
     estilo.configure("Treeview", background="#2b2b2b", foreground="white", fieldbackground="#2b2b2b", rowheight=30)
     estilo.map('Treeview', background=[('selected', '#1f538d')])
 
-    columnas = ("Columna", "Fila", "Nombre", "Cantidad")
+    columnas = ("No. de Rack","Columna", "Fila", "Nombre", "Cantidad")
     tabla = ttk.Treeview(app, columns=columnas, show="headings", style="Treeview")
 
     for col in columnas:

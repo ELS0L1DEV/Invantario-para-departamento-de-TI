@@ -7,7 +7,7 @@ Nombre VARCHAR (50) NOT NULL,
 Cantidad_pzas VARCHAR (10)NOT NULL,
 )
 
-SELECT * FROM Racks ORDER BY Columna ASC
+SELECT * FROM Racks ORDER BY Columna, Fila ASC
 
 --RACK 1
 --COLUMNA A
